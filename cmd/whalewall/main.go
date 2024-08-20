@@ -189,14 +189,6 @@ func restrictPrivileges(logger *zap.Logger, sqliteFile, logPath string) bool {
 		logger.Info("applied landlock rules")
 	}
 
-	// block unneeded syscalls
-	numAllowedSyscalls, err := installSeccompFilters()
-	if err != nil {
-		logger.Error("error setting seccomp rules", zap.Error(err))
-		return false
-	}
-	logger.Info("applied seccomp filters", zap.Int("syscalls.allowed", numAllowedSyscalls))
-
 	return true
 }
 
